@@ -7,7 +7,7 @@
     A simple <i>dissectool</i> to play and have fun statically with little <i>malware</i>. Only <b>PE/PE32+</b> format
 </p>
 
-##Install
+## Install
 ```
 git clone https://github.com/D4nex/dee-pe
 cd dee-pe
