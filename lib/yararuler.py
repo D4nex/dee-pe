@@ -23,7 +23,7 @@ class YaraRuler:
       meta_section = f"""
       meta:
         author = "{self.author}"
-        date = "{self.date}
+        date = "{self.date}"
         description = "{self.desc}"
   """
       for i, hash_value in enumerate(self.hashes, start=1):
