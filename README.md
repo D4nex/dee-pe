@@ -16,22 +16,8 @@ python3 main.py -h
 ```
 
 ## Short description
-```
-  _           _   _
- | \  _   _  |_) |_
- |_/ (/_ (/_ |   |_
-                    > Now dissect that malware like a insect =^-^ =
 
-usage: main.py [-h] -f  -a  [-c] --tags  [...] [-d]
-
-options:
-  -h, --help         show this help message and exit
-  -f , --file        Select sample for analysis
-  -a , --author      YARA Rule Author
-  -c , --condition   YARA Rule condition (default: "any of them")
-  --tags  [ ...]     Tags for dataset (ex: --tags Ransomware, Stealer)
-  -d, --dataset      Include report in dataset (Not required)
-```
+![DeePEHelp](https://github.com/user-attachments/assets/fffc910c-d00d-44f9-bfdd-799a364d9728)
 
 ### Reports
 
