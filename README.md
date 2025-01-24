@@ -37,12 +37,12 @@ options:
 
 Generates a report in JSON format with the file in pieces (all possible IOCs).
 
-**INCLUDES**:
+**Features**:
 - Metadata - (Name, File Size, Time Stamp, Machine, Others)
-- Hashes - (md5, sha1, sha256)
+- Hash Sum - (md5, sha1, sha256)
 - Readable strings
 - URLs
-- Sections - (V_Addr, V_Size, Data Size, Perms, Entropy)
+- Sections - (VAddr, VSize, Data Size, Perms, Entropy)
 - Imphash
 - Executable sections opcodes
 - WINDOWS API calls
@@ -76,7 +76,7 @@ rule AgentTesla_Rule {
 
 
 ### Dataset
-Insert data into a dataset for future training of an ML model (to avoid data congestion avoid using the -d parameter if you are not sure about inserting it into the dataset).
+Insert features into a dataset for future training of an ML model (to avoid data congestion avoid using the -d parameter if you are not sure about inserting it into the dataset).
 > PATH: ./dataset/dataset.json
 
 ## Known Issues
