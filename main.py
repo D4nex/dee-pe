@@ -4,6 +4,7 @@ from lib.yararuler import YaraRuler
 from utils import banner
 from colorama import Fore, Style
 from argparse import ArgumentParser, RawTextHelpFormatter, ArgumentTypeError
+import sys
 
 try:
   import pefile
@@ -32,21 +33,39 @@ def main():
     
     if args.dataset:
       master.datasetJson()
-      
+
 def validatePE(file):
     DOS_HEADER = 0x5A4D  #MZ
-    NT_H_SIGN = 0x00004550 #PE\0\0
     OPTIONAL_H_MAGIC = [0x10b, 0x20b] #PE32, PE32+
         
-    pe = pefile.PE(file, fast_load=True)
     try:
-      if pe.DOS_HEADER.e_magic != DOS_HEADER or pe.NT_HEADERS.Signature != NT_H_SIGN or pe.OPTIONAL_HEADER.Magic not in OPTIONAL_H_MAGIC:
-          print(f"{Fore.RED + Style.DIM}[!]{Style.RESET_ALL} File not DOS HEADER or OPT HEADER/Not PE")
+      pe = pefile.PE(file, fast_load=True)
+      if pe.DOS_HEADER.e_magic != DOS_HEADER or pe.OPTIONAL_HEADER.Magic not in OPTIONAL_H_MAGIC:
+          print(f"{Fore.RED + Style.DIM}[!]{Style.RESET_ALL} File not DOS HEADER or OPT HEADER")
           return False
       else:
           print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} DOS_HEADER -> {hex(DOS_HEADER)}\n{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} OPTIONAL_H_MAGIC -> {hex(pe.OPTIONAL_HEADER.Magic)}")
+          ntSignature(pe)
     except Exception as e:
       print(f"{Fore.RED + Style.DIM}[!]{Style.RESET_ALL} An error has ocurred: {e}")
+      
+def ntSignature(file):
+  try:
+    signature = file.NT_HEADERS.Signature
+    if signature == 0x5A4D:
+        print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} NT SIGNATURE")
+    elif signature == 0x454E:
+        print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} NE SIGNATURE")
+    elif signature == 0x4C45:
+        print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} LE SIGNATURE")
+    elif signature == 0x00004550:
+        print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} PE00 SIGNATURE")
+    else:
+      print(f"{Fore.RED + Style.DIM}[!]{Style.RESET_ALL} UNKNOWN SIGNATURE")
+      sys.exit(1)
+  except Exception as e:
+    print(f"{Fore.RED + Style.DIM}[!]{Style.RESET_ALL} An error has ocurred: {e}")
+
     
 if __name__ == "__main__":
   main()

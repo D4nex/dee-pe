@@ -1,0 +1,41 @@
+# Ignore __pycache__
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore virtual env
+venv/
+env/
+.venv/
+
+# Ignore IDE config files
+.vscode/
+.idea/
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Ignore dist and build files
+dist/
+build/
+*.egg-info/
+
+# Ignore local config files
+*.local
+
+# Ignore log files
+*.log
+
+# Ignore env files
+.env
+.env.local
+
+# Ignore all except .placeholder
+dataset/*
+!dataset/.placeholder
+
+reports/*
+!reports/.placeholder
+
+yara-rules/*
+!yara-rules/.placeholder

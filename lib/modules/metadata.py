@@ -13,6 +13,9 @@ class Metadata:
             self.sections = int
             self.characteristics = None
             self.subsystem = None
+            self.sym_table = None
+            self.sym_num = None
+            self.opt_header_size = None
 
         def to_dict(self):
             return {
@@ -22,6 +25,9 @@ class Metadata:
                 "Time Stamp": self.timestamp,
                 "File Type": self.file_type,
                 "Machine": self.machine,
+                "Pointer to Sym Table": self.sym_table,
+                "Number of Sym": self.sym_num,
+                "Size of OPT Header": self.opt_header_size,
                 "Number of Sections": self.sections,
                 "Characteristics": self.characteristics,
                 "Subsystem": self.subsystem,
@@ -40,4 +46,7 @@ class Metadata:
             instance.timestamp = pe.FILE_HEADER.TimeDateStamp
             instance.characteristics = hex(pe.FILE_HEADER.Characteristics)
             instance.subsystem = pe.OPTIONAL_HEADER.Subsystem
+            instance.sym_table = pe.FILE_HEADER.PointerToSymbolTable
+            instance.sym_num = pe.FILE_HEADER.NumberOfSymbols
+            instance.opt_header_size = pe.FILE_HEADER.SizeOfOptionalHeader
             return instance
