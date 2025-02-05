@@ -1,6 +1,5 @@
-from lib.analysis import Analyzer
-from lib.master import Master
-from lib.yararuler import YaraRuler
+from plugins.master import Master
+from plugins.yararuler import YaraRuler
 from utils import banner
 from colorama import Fore, Style
 from argparse import ArgumentParser, RawTextHelpFormatter, ArgumentTypeError
