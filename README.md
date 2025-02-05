@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/c05d24d7-960e-47e2-9af5-8716ca375c11" alt="Dee-PE logo">
+    <img src="assets/deepe.png" alt="Dee-PE logo">
 </p>
 
 <h3 align="center">Dee-PE</h3>
@@ -9,15 +9,15 @@
 
 ## Install
 ```
-git clone https://github.com/D4nex/dee-pe
-cd dee-pe
+git clone https://github.com/D4nex/deepe-cli
+cd deepe-cli
 pip install -r requirements.txt
 python3 main.py -h
 ```
 
 ## Short description
 
-![DeePEHelp](https://github.com/user-attachments/assets/fffc910c-d00d-44f9-bfdd-799a364d9728)
+![DeePEHelp](assets/help.jpg)
 
 ### Reports
 
@@ -68,5 +68,4 @@ Insert features into a dataset for future training of an ML model (to avoid data
 ## Known Issues
 
 - **Comment the code**: I know, only 5 minutes
-- **VirusTotal Integration**: Integration with Virus Total for file scanning
 - Mmmm...little things
