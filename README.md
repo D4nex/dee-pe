@@ -9,7 +9,7 @@
 
 ## Documentation
 
-See the official documentation [here](doc/)
+See the official documentation [here](doc/README.md)
 
 ## Short description
 
