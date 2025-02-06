@@ -1,4 +1,5 @@
 from colorama import Fore, Style
+import os
 
 class YaraRuler:
   def __init__(self, master, author: str, condition: str):
@@ -41,7 +42,14 @@ class YaraRuler:
           {self.condition}
       }}"""
       
-      with open(f"yara-rules/{self.name}.yar", "w") as f:
+      path = "yara-rules"
+      file = f"{self.name}.yar"
+      output_file = os.path.join(path, file)
+      
+      if not os.path.exists(path):
+        os.makedirs(path)
+        
+      with open(output_file, "w") as f:
         f.write(yara_rule.strip())
       print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} YARA rule written to {self.name}.yar")
     except Exception as e:

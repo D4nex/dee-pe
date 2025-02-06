@@ -9,11 +9,16 @@ class Master:
     self.tags = tags
     self.analysis = Analyzer(file, debug_mode=True)
     self.date = datetime.now().strftime("%Y-%m-%d")
-    self.dataset = "dataset/dataset.json"
     self.analysis.Parse()
     
   def reportJson(self):
-    output_file = f"reports/{self.date}_{self.analysis.hashes['md5']}_REPORT.deep"
+    path = "reports"
+    file = f"{self.date}_{self.analysis.hashes['md5']}_REPORT.deep"
+    
+    if not os.path.exists(path):
+      os.makedirs(path)
+    output_file = os.path.join(path, file)
+    
     data = {}
     
     report_index = f"{self.date}_{self.file}_REPORT"
@@ -49,7 +54,9 @@ class Master:
     api_calls = []
     imports = []
     tags = self.tags
-    
+    path = "dataset"
+    file = "dataset.json"
+    output_file = os.path.join(path, file)
     try:
       for key, hash_value in self.analysis.hashes.items():
         hashes.append(hash_value)
@@ -83,15 +90,16 @@ class Master:
         "Imports": imports,
         "Tags": tags
       }
-      if os.path.exists(self.dataset):
-        with open(self.dataset, 'r') as f:
+      if os.path.exists(output_file):
+        with open(output_file, 'r') as f:
           data = json.load(f)
       else:
+        os.makedirs(path)
         data = {"Samples": []}
         
       data["Samples"].append(sample)
-      with open(self.dataset, 'w') as f:
+      with open(output_file, 'w') as f:
         json.dump(data, f, indent=4)
-      print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} Add sample to {self.dataset}")
+      print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} Add sample to {output_file}")
     except Exception as e:
       print(f"{Fore.RED + Style.DIM}[!]{Style.RESET_ALL} An error has ocurred: ", e)

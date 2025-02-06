@@ -31,11 +31,6 @@ build/
 .env.local
 
 # Ignore all except .placeholder
-dataset/*
-!dataset/.placeholder
-
-reports/*
-!reports/.placeholder
-
-yara-rules/*
-!yara-rules/.placeholder
+dataset/
+reports/
+yara-rules/
