@@ -26,7 +26,17 @@ rule AgentTesla_Rule {
 
       strings:
         $imp = "7eae418c7423834ffc3d79b4300bd6fb"
-        $op1 = {55 8b ec 83 ec 5c 83 7d 0c 0f 74 2b 83 7d 0c 46 8b 45 14 75 0d 83 48 18 10 8b 0d 08 a2 42 00 89 48 04 50 ff 75 10 ff 75 0c ff 75 08 ff 15 1c 82 40 00 e9 42 01 00 00 53 56 8b 35 14 a2 42 00 8d 45 a4 57 50 ff 75 08 ff 15 20 82 40 00 83 65 f4 00 89 45 0c 8d 45 e4 50 ff 75 08 ff 15 24 82 40 00 8b 7d f0 83 65 f0 00 8b 1d 60 80 40 00 e9 80 00 00 00 0f b6 46 52 0f b6 56 56 0f af 55 e8 8b}
+        $op1 = {55 8b ec 83 ec 5c 83 7d 0c 0f 74 2b 83 7d 0c 46 8b 45 14 75 0d 83 48 18 10 8b 0d 08 a2 42}
+        $op2 = {89 48 04 50 ff 75 10 ff 75 0c ff 75 08 ff 15 1c 82 40}
+        $op3 = {e9 42 01}
+        $op4 = {53 56 8b 35 14 a2 42}
+        $op5 = {8d 45 a4 57 50 ff 75 08 ff 15 20 82 40}
+        $op6 = {83 65 f4}
+        $op7 = {89 45 0c 8d 45 e4 50 ff 75 08 ff 15 24 82 40}
+        $op8 = {8b 7d f0 83 65 f0}
+        $op9 = {8b 1d 60 80 40}
+        $op10 = {e9 80}
+        $op11 = {0f b6 46 52 0f b6 56 56 0f af 55 e8 8b}
       condition:
           any of them
   }
@@ -37,7 +47,7 @@ rule AgentTesla_Rule {
 PEParser is a plugin that allows to extract information in hexadecimal format from the headers(**IMAGE_DOS_HEADER**, **IMAGE_FILE_HEADER**, **IMAGE_OPTIONAL_HEADER**) of the analyzed file.
 
 ### IMAGE_DOS_HEADER
-```
+```c
 struct DOS_HEADER {
     uint16_t e_magic; // Magic number (must be "MZ" or 0x5A4D)
     uint16_t e_cblp; // Bytes in the last page of the file
@@ -62,7 +72,7 @@ struct DOS_HEADER {
 ```
 
 ### IMAGE_FILE_HEADER
-```
+```c
 struct FILE_HEADER {
     uint16_t Machine; // Machine architecture (e.g. x86, x64)
     uint16_t NumberOfSections; // Number of sections in the file
@@ -74,7 +84,7 @@ struct FILE_HEADER {
 };
 ```
 ## IMAGE_OPTIONAL_HEADER
-```
+```c
 struct OPTIONAL_HEADER {
     // Standard fields (present in all PE versions)
     uint16_t Magic; // Magic number indicating PE type (32-bit or 64-bit)
