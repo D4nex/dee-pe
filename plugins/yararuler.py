@@ -30,8 +30,22 @@ class YaraRuler:
         meta_section += f'        hash{i} = "{hash_value}"\n'
         
       opcode_strings = []
+      part = []
+      part_counter = 1
       for i, opcode in enumerate(self.opcodes, start=1):
-        opcode_strings.append(f'        $op{i} = {{{opcode}}}')
+        bytes_ = opcode.split()
+        for byte in bytes_:
+          if byte == '00':
+            if part:
+              opcode_strings.append(f'        $op{part_counter} = {{{" ".join(part)}}}')
+              part_counter += 1
+              part = []
+          else:
+            part.append(byte)
+        if part:
+          opcode_strings.append(f'        $op{part_counter} = {{{" ".join(part)}}}')
+          part_counter += 1
+          part = []
       strings_section = "strings:\n" + "\n".join(self.imphash + opcode_strings)
       
       yara_rule = f"""
