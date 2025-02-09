@@ -1,12 +1,12 @@
-## Plugins
+# Plugins
 Series of plugins integrated into the project, plugins in development.
 
-### Master
+## Master
 This is the master plugin, it is in charge of doing the analysis of the file using the native library of the project, all plugins must call the master plugin to work with the data resulting from the analysis, by default this plugin does:
 - Generates a report with the data resulting from the analysis.
 - Generates the dataset and integrates the data into the dataset if specified by the user.
 
-### YaraRuler Plugin
+## YaraRuler Plugin
 
 Generate a YARA rule based on the possible IOCs in the program (must be for better accuracy e.g. inserting strings, or more data extracted).
 
@@ -30,4 +30,85 @@ rule AgentTesla_Rule {
       condition:
           any of them
   }
+```
+
+## PEParser Plugin
+
+PEParser is a plugin that allows to extract information in hexadecimal format from the headers(**IMAGE_DOS_HEADER**, **IMAGE_FILE_HEADER**, **IMAGE_OPTIONAL_HEADER**) of the analyzed file.
+
+### IMAGE_DOS_HEADER
+```
+struct DOS_HEADER {
+    uint16_t e_magic; // Magic number (must be "MZ" or 0x5A4D)
+    uint16_t e_cblp; // Bytes in the last page of the file
+    uint16_t e_cp; // Pages in the file
+    uint16_t e_crlc; // Number of relocations
+    uint16_t e_cparhdr; // Header size in paragraphs
+    uint16_t e_minalloc; // Minimum number of extra paragraphs
+    uint16_t e_maxalloc; // Maximum number of additional paragraphs
+    uint16_t e_ss; // Initial value of the SS register (Stack segment)
+    uint16_t e_sp; // Initial value of the SP register (Stack pointer)
+    uint16_t e_csum; // Checksum
+    uint16_t e_ip; // Initial value of the IP register (Instruction Pointer)
+    uint16_t e_cs; // Initial value of the CS register (Code Segment)
+    uint16_t e_lfarlc; // Offset of the relocation table
+    uint16_t e_ovno; // Overlay number
+    uint16_t e_res[4]; // Reserved (4 words)
+    uint16_t e_oemid; // OEM identifier
+    uint16_t e_oeminfo; // OEM Information
+    uint16_t e_res2[10]; // Reserved (10 words)
+    uint32_t e_lfanew; // Offset to PE header (New header)
+};
+```
+
+### IMAGE_FILE_HEADER
+```
+struct FILE_HEADER {
+    uint16_t Machine; // Machine architecture (e.g. x86, x64)
+    uint16_t NumberOfSections; // Number of sections in the file
+    uint32_t TimeDateStamp; // Compilation time stamp
+    uint32_t PointerToSymbolTable; // Offset to the symbol table (deprecated in PE)
+    uint32_t NumberOfSymbols; // Number of symbols in the table (deprecated in PE)
+    uint16_t SizeOfOptionalHeader; // Size of optional header (PE)
+    uint16_t Characteristics; // Flags describing file characteristics
+};
+```
+## IMAGE_OPTIONAL_HEADER
+```
+struct OPTIONAL_HEADER {
+    // Standard fields (present in all PE versions)
+    uint16_t Magic; // Magic number indicating PE type (32-bit or 64-bit)
+    uint8_t MajorLinkerVersion; // Major version of the linker
+    uint8_t MinorLinkerVersion; // Minor version of the linker
+    uint32_t SizeOfCode; // Code section size
+    uint32_t SizeOfInitializedData; // Size of initialized data section
+    uint32_t SizeOfUninitializedData; // Size of the uninitialized data section
+    uint32_t AddressOfEntryPoint; // Entry point (RVA of the startup code)
+    uint32_t BaseOfCode; // Base RVA of the code section
+    uint32_t BaseOfData; // Base RVA of the data section (PE32 only)
+    
+    // Windows specific fields
+    uint32_t ImageBase; // Preferred base address of the image in memory
+    uint32_t SectionAlignment; // In-memory section alignment
+    uint32_t FileAlignment; // File section alignment
+    uint16_t MajorOperatingSystemVersion; // Major version of operating system required
+    uint16_t MinorOperatingSystemVersion; // Minor version of the required operating system
+    uint16_t MajorImageVersion; // Major image version
+    uint16_t MinorImageVersion; // Minor image version
+    uint16_t MajorSubsystemVersion; // Major version of the required subsystem
+    uint16_t MinorSubsystemVersion; // Minor version of the required subsystem
+    uint32_t Win32VersionValue; // Reserved (must be 0)
+    uint32_t SizeOfImage; // Total size of the image in memory
+    uint32_t SizeOfHeaders; // Size of all PE headers
+    uint32_t CheckSum; // Checksum of the image
+    uint16_t Subsystem; // Required subsystem (e.g. GUI, console)
+    uint16_t DllCharacteristics; // DLL Characteristics
+    uint32_t SizeOfStackReserve; // Size reserved for the stack
+    uint32_t SizeOfStackCommit; // Initial committed size for the stack
+    uint32_t SizeOfHeapReserve; // Reserved size for the heap
+    uint32_t SizeOfHeapCommit; // Initial committed size for the heap
+    uint32_t LoaderFlags; // Obsolete (must be 0)
+    uint32_t NumberOfRvaAndSizes; // Number of entries in the data directory
+    IMAGE_DATA_DIRECTORY DataDirectory[16]; // Data directories (e.g. Imports, Exports)
+};
 ```

@@ -1,5 +1,6 @@
 from plugins.master import Master
 from plugins.yararuler import YaraRuler
+from plugins.peparser import PEParser
 from utils import banner
 from colorama import Fore, Style
 from argparse import ArgumentParser, RawTextHelpFormatter, ArgumentTypeError
@@ -16,22 +17,27 @@ def main():
   parser = ArgumentParser(description="", formatter_class=RawTextHelpFormatter)
   
   parser.add_argument('-f', '--file', type=str, required=True, help='Select sample for analysis', metavar='')
-  parser.add_argument('-a', '--author', type=str, required=True, help='YARA Rule Author', metavar='')
+  parser.add_argument('-a', '--author', type=str, required=False, help='YARA Rule Author', metavar='')
   parser.add_argument('-c', '--condition', type=str, default="any of them", help='YARA Rule condition (default: "any of them")', metavar='')
-  parser.add_argument('--tags', nargs='+', default=[],required=True, help='Tags for dataset (ex: --tags Ransomware, Stealer)', metavar='')
+  parser.add_argument('--tags', nargs='+', default=[],required=False, help='Tags for dataset (ex: --tags Ransomware, Stealer)', metavar='')
   parser.add_argument('-d', '--dataset',action='store_true', required=False, help='Include report in dataset (Not required)')
+  parser.add_argument('--infope', action='store_true', help='Obtain information from the PE Headers')
   args = parser.parse_args()
   
-  if args.file and args.tags:
+  if args.file:
     validatePE(args.file)
     master = Master(args.file, args.tags)
-    ruler = YaraRuler(master, args.author, args.condition)
-    
     master.reportJson()
-    ruler.writeRule()
     
+    if args.author:
+      ruler = YaraRuler(master, args.author, args.condition)
+      ruler.writeRule()
+      
     if args.dataset:
       master.datasetJson()
+    
+    if args.infope:
+      peparser = PEParser(master)
 
 def validatePE(file):
     DOS_HEADER = 0x5A4D  #MZ
