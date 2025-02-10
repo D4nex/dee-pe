@@ -35,9 +35,12 @@ class Master:
     }
     data[report_index] = report
     try:
-      with open(output_file, "w") as json_file:
-        json.dump(data, json_file, indent=4)
-      print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} Report saved to {output_file}!")
+      if not os.path.exists(output_file):
+        with open(output_file, "w") as json_file:
+          json.dump(data, json_file, indent=4)
+          print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} Report saved to {output_file}!")
+      else:
+        print(f"{Fore.MAGENTA}[{Fore.CYAN}+{Fore.MAGENTA}]{Style.RESET_ALL} Report {file} alredy exist!")
     except Exception as e:
       print(f"{Fore.RED + Style.DIM}[!]{Style.RESET_ALL} An error has ocurred: {e}")
     

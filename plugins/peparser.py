@@ -13,7 +13,7 @@ class PEParser:
     
   
   def parseDosHdr(self):
-    print(f"\n\t\t=========================\n \t\t   {Fore.MAGENTA + Style.DIM}IMAGE_DOS_HEADER{Style.RESET_ALL} \n\t\t=========================")
+    print("\n\tstruct", Fore.MAGENTA + Style.DIM, "IMAGE_DOS_HEADER", Style.RESET_ALL, "{")
     print(f"\t\t  {Fore.CYAN}{self.dos_hdr.e_magic:04X}{Style.RESET_ALL}  ->  Magic Number")
     print(f"\t\t  {Fore.CYAN}{self.dos_hdr.e_cblp:04X}{Style.RESET_ALL}  ->  Bytes on last page of file")
     print(f"\t\t  {Fore.CYAN}{self.dos_hdr.e_cp:04X}{Style.RESET_ALL}  ->  Pages in file")
@@ -31,9 +31,10 @@ class PEParser:
     print(f"\t\t  {Fore.CYAN}{self.dos_hdr.e_oemid:04X}{Style.RESET_ALL}  ->  OEM identifier")
     print(f"\t\t  {Fore.CYAN}{self.dos_hdr.e_oeminfo:04X}{Style.RESET_ALL}  ->  OEM information")
     print(f"\t\t  {Fore.CYAN}{self.dos_hdr.e_lfanew:04X}{Style.RESET_ALL}  ->  File addr of new exe header")
+    print("\t};")
   
   def parseFileHdr(self):
-    print(f"\n\t\t=========================\n \t\t   {Fore.MAGENTA + Style.DIM}IMAGE_FILE_HEADER{Style.RESET_ALL} \n\t\t=========================")
+    print("\n\tstruct", Fore.MAGENTA + Style.DIM, "IMAGE_FILE_HEADER", Style.RESET_ALL, "{")
     machine = self.file_hdr.Machine
     machine_dict = {
         0x8664: "x64",
@@ -48,9 +49,10 @@ class PEParser:
     print(f"\t\t  {Fore.CYAN}{self.file_hdr.NumberOfSymbols:04X}{Style.RESET_ALL}  ->  Number of syms")
     print(f"\t\t  {Fore.CYAN}{self.file_hdr.SizeOfOptionalHeader:04X}{Style.RESET_ALL}  ->  Size of opt header")
     print(f"\t\t  {Fore.CYAN}{self.file_hdr.Characteristics:04X}{Style.RESET_ALL}  ->  Characteristics")
+    print("\t};")
   
   def parseOptHeader(self):
-    print(f"\n\t\t=========================\n \t\t   {Fore.MAGENTA + Style.DIM}IMAGE_OPTIONAL_HEADER{Style.RESET_ALL} \n\t\t=========================")
+    print("\n\tstruct", Fore.MAGENTA + Style.DIM, "IMAGE_OPTIONAL_HEADER", Style.RESET_ALL, "{")
     print(f"\t\t  {Fore.CYAN}{self.opt_hdr.Magic:04X}{Style.RESET_ALL}  ->  Magic")
     print(f"\t\t  {Fore.CYAN}{self.opt_hdr.MajorLinkerVersion:04X}{Style.RESET_ALL}  ->  Major Linker Version")
     print(f"\t\t  {Fore.CYAN}{self.opt_hdr.MinorLinkerVersion:04X}{Style.RESET_ALL}  ->  Minor Linker Version")
@@ -71,4 +73,5 @@ class PEParser:
     print(f"\t\t  {Fore.CYAN}{self.opt_hdr.SizeOfStackCommit:04X}{Style.RESET_ALL}  ->  Size of stack commit")
     print(f"\t\t  {Fore.CYAN}{self.opt_hdr.SizeOfHeapReserve:04X}{Style.RESET_ALL} ->  Size of heap reserve")
     print(f"\t\t  {Fore.CYAN}{self.opt_hdr.SizeOfHeapCommit:04X}{Style.RESET_ALL}  ->  Size of heap commit")
-    print(f"\t\t  {Fore.CYAN}{self.opt_hdr.NumberOfRvaAndSizes:04X}{Style.RESET_ALL}   [Number of RVA and sizes]")
+    print(f"\t\t  {Fore.CYAN}{self.opt_hdr.NumberOfRvaAndSizes:04X}{Style.RESET_ALL}  ->  Number of RVA and sizes")
+    print("\t};")
