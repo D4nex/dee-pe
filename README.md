@@ -1,8 +1,8 @@
 <p align="center">
-    <img src="assets/deepe.png" alt="Dee-PE logo">
+    <img src="assets/dissecta.png" alt="Dee-PE logo">
 </p>
 
-<h3 align="center">Dee-PE</h3>
+<h3 align="center">Dissecta</h3>
 <p align="center">
     A simple <i>dissectool</i> to play and have fun statically with little <i>malware</i>. Only <b>PE/PE32+</b> format
 </p>

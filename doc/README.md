@@ -1,6 +1,6 @@
-# Official DeePE documentation
+# Official Dissecta documentation
 
-This is the official documentation for the DeePE project.
+This is the official documentation for the Dissecta project.
 
 ## Index
 - [Installation](installation.md)
