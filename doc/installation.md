@@ -6,7 +6,7 @@ The installation process is simple, does not require complex dependencies at thi
 git clone https://github.com/admeder/Dissecta
 cd Dissecta
 pip install -r requirements.txt
-python3 main.py -h
+python3 dissecta.py -h
 ```
 
 ### Current requirements

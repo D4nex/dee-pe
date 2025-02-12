@@ -13,7 +13,7 @@ class Master:
     
   def reportJson(self):
     path = "reports"
-    file = f"{self.date}_{self.analysis.hashes['md5']}_REPORT.deep"
+    file = f"{self.date}_{self.analysis.hashes['md5']}_REPORT.dsx"
     
     if not os.path.exists(path):
       os.makedirs(path)
